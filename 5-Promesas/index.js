@@ -1,4 +1,4 @@
-// let padres=true
+// let padres=false
 
 // const carnitaAsada = new Promise((resolve,reject)=>{
 //   setTimeout(()=>{
@@ -10,18 +10,19 @@
 //   },3000)
 // })
 
-// carnitaAsada.then((result)=>{
+// async function hacerCarnita(){
+//   let result =  await carnitaAsada
 //   console.log(result)
-//   console.log('comprar carnita')
-// }).catch((err)=>{
-//   console.log(err)
-// })
-
+// }
+// hacerCarnita()
 // console.log('Esperando...')
 
 const consultaDb = new Promise((resolve, reject) => {
 
   const peliculas = [
+    {name:'buscando a nemo'},
+    {name:'buscando a nemo 2'},
+    {name:'buscando a nemo 3'}
   ]
 
   setTimeout(() => {
@@ -33,9 +34,22 @@ const consultaDb = new Promise((resolve, reject) => {
   }, 1000)
 })
 
-consultaDb.then((arr)=>{
-  arr.forEach(peli => {
-    console.log(peli)
-  });
-}).catch(console.log)
+
+async function consultandoALaBaseDeDatos(){
+  try{
+    let result = await consultaDb
+    result.forEach(e => {
+      console.log(e.name)
+    })
+  }catch(err){
+    console.log(err)
+  }
+}
+
+consultandoALaBaseDeDatos()
+// consultaDb.then((arr)=>{
+//   arr.forEach(peli => {
+//     console.log(peli.name)
+//   });
+// }).catch(console.log)
 
