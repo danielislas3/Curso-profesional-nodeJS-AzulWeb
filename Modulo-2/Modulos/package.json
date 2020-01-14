@@ -1,0 +1,24 @@
+{
+  "name": "modulos",
+  "version": "1.0.0",
+  "description": "Ejemplo de modulos en nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "math",
+    "add",
+    "subtraction"
+  ],
+  "author": "Daniel_Orio",
+  "license": "MIT",
+  "homepage": "http://danielislas3.com",
+  "repository": {
+    "type": "string",
+    "url": " https://github.com/danielislas3/Curso-profesional-nodeJS-AzulWeb.git (push)"
+  },
+  "dependencies": {
+    "calc": "0.0.1"
+  }
+}
