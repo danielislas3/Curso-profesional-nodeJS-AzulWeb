@@ -16,7 +16,7 @@
   "homepage": "http://danielislas3.com",
   "repository": {
     "type": "string",
-    "url": " https://github.com/danielislas3/Curso-profesional-nodeJS-AzulWeb.git (push)"
+    "url": " https://github.com/danielislas3/Curso-profesional-nodeJS-AzulWeb.git"
   },
   "dependencies": {
     "calc": "0.0.1"
