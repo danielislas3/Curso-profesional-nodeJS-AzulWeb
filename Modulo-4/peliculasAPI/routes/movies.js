@@ -1,16 +1,17 @@
 const express = require('express')
-const moviesMoks = require('./utils/mocks/peliculasMocks')
+const MoviesServices = require('../services/moviesServices')
 
 function moviesAPI(app) {
   /*CRUD*/
-
+  const moviesServices = new MoviesServices()
   /*****Read****/
   const router = express.Router()
   app.use('/api/movies', router)
 
   router.get('/', async (req, res, next) => {
     try {
-      const movies = await Promise.resolve(moviesMoks)
+      const tags=req.query 
+      const movies = await moviesServices.getMoviesService({tags})
       res.status(200).json({
         data: movies,
         message: 'todas las peliculas'
@@ -19,9 +20,22 @@ function moviesAPI(app) {
       next(err)
     }
   })
+  router.get('/:movieId', async (req, res, next) => {
+    const {movieId} = req.params
+    try {
+      const movie = await moviesServices.getOneMovieService({movieId})
+      res.status(200).json({
+        data: movie.movies[0],
+        message: 'todas las peliculas'
+      })
+    } catch (err) {
+      next(err)
+    }
+  })
   /*****Create****/
   router.post('/', async (req, res, next) => {
-    const createdMovie = await Promise.resolve(moviesMoks)
+    const {body:movie}=req
+    const createdMovie = await moviesServices.createMoviesService({movie})
     try {
       res.status(201).json({
         data: createdMovie.movies[0].id,
@@ -33,7 +47,9 @@ function moviesAPI(app) {
   })
  /*****Update****/
   router.put('/:movieId',async (req, res, next) => {
-    const updatedMovie = await Promise.resolve(moviesMoks)
+    const {body:movie}=req
+    const {movieId} = req.params
+    const updatedMovie = await moviesServices.updateMoviesService({movieId,movie})
     try {
       res.status(200).json({
         data: updatedMovie.movies[0].id,
@@ -45,7 +61,8 @@ function moviesAPI(app) {
   })
  /*****Delet****/
  router.delete('/:movieId', async (req, res, next) => {
-  const deletedMovie = await Promise.resolve(moviesMoks)
+  const {movieId} = req.params
+  const deletedMovie = await moviesServices.deletedMoviesService({movieId})
   try {
     res.status(200).json({
       data: deletedMovie.movies[0].id,
@@ -61,3 +78,4 @@ function moviesAPI(app) {
 }
 
 module.exports = moviesAPI
+
