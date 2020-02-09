@@ -1,37 +1,14 @@
 const express = require('express')
-const MoviesServices = require('../services/moviesServices')
-
+const {getAllMovies,getOneMovie} = require('../controllers/moviesController')
 function moviesAPI(app) {
   /*CRUD*/
-  const moviesServices = new MoviesServices()
   /*****Read****/
   const router = express.Router()
   app.use('/api/movies', router)
 
-  router.get('/', async (req, res, next) => {
-    try {
-      const tags=req.query 
-      const movies = await moviesServices.getMoviesService({tags})
-      res.status(200).json({
-        data: movies,
-        message: 'todas las peliculas'
-      })
-    } catch (err) {
-      next(err)
-    }
-  })
-  router.get('/:movieId', async (req, res, next) => {
-    const {movieId} = req.params
-    try {
-      const movie = await moviesServices.getOneMovieService({movieId})
-      res.status(200).json({
-        data: movie.movies[0],
-        message: 'todas las peliculas'
-      })
-    } catch (err) {
-      next(err)
-    }
-  })
+  router.get('/',getAllMovies)
+  router.get('/:movieId', getOneMovie)
+  
   /*****Create****/
   router.post('/', async (req, res, next) => {
     const {body:movie}=req
