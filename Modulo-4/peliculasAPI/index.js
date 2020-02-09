@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const dotenv = require('dotenv').config()
-const moviesAPI= require('./routes/movies')
+const moviesAPI = require('./routes/movies')
 
 moviesAPI(app)
 
