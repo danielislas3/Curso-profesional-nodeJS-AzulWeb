@@ -5,6 +5,17 @@ const moviesServices = new MoviesServices()
 
 const getAllMovies = async (req, res, next) => {
   try {
+    const movies = await moviesServices.getAllMoviesService()
+    res.status(200).json({
+      data: movies,
+      message: 'todas las peliculas'
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+const getMovies = async (req, res, next) => {
+  try {
     const tags = req.query
     const movies = await moviesServices.getMoviesService({
       tags
@@ -27,7 +38,7 @@ const getOneMovie = async (req, res, next) => {
       movieId
     })
     res.status(200).json({
-      data: movie.movies[0],
+      data: movie,
       message: 'todas las peliculas'
     })
   } catch (err) {
@@ -39,12 +50,10 @@ const createMovie = async (req, res, next) => {
   const {
     body: movie
   } = req
-  const createdMovie = await moviesServices.createMoviesService({
-    movie
-  })
+  const createdMovie = await moviesServices.createMoviesService( movie)
   try {
     res.status(201).json({
-      data: createdMovie.movies[0].id,
+      data: createdMovie,
       message: 'done'
     })
   } catch (err) {
@@ -65,7 +74,7 @@ const updateMovie = async (req, res, next) => {
   })
   try {
     res.status(200).json({
-      data: updatedMovie.movies[0].id,
+      data: updatedMovie,
       message: 'updated movie'
     })
   } catch (err) {
@@ -82,7 +91,7 @@ const deleteMovie = async (req, res, next) => {
   })
   try {
     res.status(200).json({
-      data: deletedMovie.movies[0].id,
+      data: deletedMovie,
       message: 'deleted movie'
     })
   } catch (err) {

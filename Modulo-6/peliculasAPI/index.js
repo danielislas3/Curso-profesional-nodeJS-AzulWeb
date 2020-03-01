@@ -1,18 +1,24 @@
 const express = require('express')
-const app = express()
+const bodyParser= require('body-parser')
 const dotenv = require('dotenv').config()
 const moviesAPI = require('./routes/movies')
 const mongoose = require('mongoose');
-
 const url = process.env.DB
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
+const app = express()
 
-const Cat = mongoose.model('Cat', { name: String });
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
 
-const kitty = new Cat({ name: 'Zildjian' });
 
-kitty.save().then(() => console.log('meow'));
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}).then(res=>{
+  console.log('conectado a la base de datos: '+res.connections[0].name)
+}).catch(err=>{
+  console.log("error de coneccion en la base:"+err);
+  
+})
+
+moviesAPI(app)
 
 app.listen(process.env.PORT, () => {
   console.log(` app listening on port ${process.env.PORT} 
