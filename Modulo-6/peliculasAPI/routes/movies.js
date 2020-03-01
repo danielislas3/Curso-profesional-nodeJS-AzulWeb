@@ -10,7 +10,6 @@ function moviesAPI(app) {
   /*****Read****/
   router.get('/', getAllMovies)
   router.get('/:movieId', getOneMovie)
-
   /*****Create****/
   router.post('/', createMovie)
 

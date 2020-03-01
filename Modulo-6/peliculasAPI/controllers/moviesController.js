@@ -4,8 +4,9 @@ const moviesServices = new MoviesServices()
 
 
 const getAllMovies = async (req, res, next) => {
+  const {tags} = req.query
   try {
-    const movies = await moviesServices.getAllMoviesService()
+    const movies = await moviesServices.getAllMoviesService(tags)
     res.status(200).json({
       data: movies,
       message: 'todas las peliculas'
@@ -34,12 +35,10 @@ const getOneMovie = async (req, res, next) => {
     movieId
   } = req.params
   try {
-    const movie = await moviesServices.getOneMovieService({
-      movieId
-    })
+    const movie = await moviesServices.getOneMovieService(movieId)
     res.status(200).json({
       data: movie,
-      message: 'todas las peliculas'
+      message: 'Pelicula solicitada con exito'
     })
   } catch (err) {
     next(err)
@@ -72,12 +71,14 @@ const updateMovie = async (req, res, next) => {
     movieId,
     movie
   })
+
   try {
     res.status(200).json({
       data: updatedMovie,
       message: 'updated movie'
     })
   } catch (err) {
+    console.log(err)
     next(err)
   }
 }
@@ -100,6 +101,7 @@ const deleteMovie = async (req, res, next) => {
 }
 
 module.exports = {
+  getMovies,
   getAllMovies,
   getOneMovie,
   createMovie,

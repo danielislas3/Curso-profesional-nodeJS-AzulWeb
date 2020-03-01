@@ -3,15 +3,13 @@ const Movie = require('../models/Movies')
 
 class MoviesServices {
 
-  async getAllMoviesService() {
+  async getAllMoviesService(tags) {
+    if(tags){
+      const query= {tags:{$in: tags}}
+      const movies = await Movie.find(query)
+      return movies || []
+    }
     const movies = await Movie.find()
-    return movies || []
-  }
-
-  async getMoviesService({tags}) {
-    const query= tags && {tags: {$in:tags}} 
-    
-    const movies = await Movie.find(query)
     return movies || []
   }
 
@@ -21,19 +19,23 @@ class MoviesServices {
   }
 
   async createMoviesService(movie) {
-    console.log(movie)
     const createdMovie = await Movie.create(movie)
     return createdMovie || {}
   }
 
-  async updateMoviesService(movieId,movie) {
+  async updateMoviesService({movieId,movie}) {
     const updatedMovie = await Movie.findByIdAndUpdate(movieId,movie,{new:true})
     return updatedMovie.id
   }
 
   async deletedMoviesService(movieId) {
-    const deletedMovie = await Movie.findByIdAndDelete(movieId)
-    return deletedMovie.id
+    try{
+      const deletedMovie = await Movie.findByIdAndDelete(movieId)
+      return deletedMovie.id
+    }catch(err){
+      console.log(err)
+      return {message:'pelicula no encontrada'}
+    }
   }
 
 }
