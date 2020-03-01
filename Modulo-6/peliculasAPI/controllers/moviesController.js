@@ -5,6 +5,7 @@ const moviesServices = new MoviesServices()
 
 const getAllMovies = async (req, res, next) => {
   const {tags} = req.query
+  console.log(req.query)
   try {
     const movies = await moviesServices.getAllMoviesService(tags)
     res.status(200).json({

@@ -8,7 +8,11 @@ function moviesAPI(app) {
   app.use('/api/movies', router)
   /****CRUD*****/
   /*****Read****/
-  router.get('/', getAllMovies)
+  router.get('/', (req,res,next)=>{
+    
+   req.query.tags="animada"
+    next()
+  },getAllMovies)
   router.get('/:movieId', getOneMovie)
   /*****Create****/
   router.post('/', createMovie)
