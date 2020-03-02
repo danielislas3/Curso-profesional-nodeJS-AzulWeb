@@ -4,6 +4,7 @@ const dotenv = require('dotenv').config()
 const moviesAPI = require('./routes/movies')
 const mongoose = require('mongoose');
 const url = process.env.DB
+const {logError,handleError}=require('./middlewares/errorMiddleware')
 
 const app = express()
 
@@ -19,6 +20,8 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}).then(re
 })
 
 moviesAPI(app)
+app.use(logError)
+app.use(handleError)
 
 app.listen(process.env.PORT, () => {
   console.log(` app listening on port ${process.env.PORT} 
