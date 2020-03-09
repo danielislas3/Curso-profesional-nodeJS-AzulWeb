@@ -218,6 +218,23 @@ const movies =[{
   ]
 }]
 
+const filterMoviesMocks =tags=> movies.filter(movie=>movie.tags.includes(tags))
+
+class servicesMoviesMocks{
+
+  async getAllMovies(){
+    return Promise.resolve(movies)
+  }
+
+  async createMovies(){
+    return Promise.resolve(movies[0])
+  }
+}
+
+
 module.exports={
-  movies
+  movies,
+  servicesMoviesMocks,
+  filterMoviesMocks
+  
 }
