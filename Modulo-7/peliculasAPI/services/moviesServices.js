@@ -1,5 +1,6 @@
 const moviesMoks = require('../utils/mocks/peliculasMocks')
 const Movie = require('../models/Movies')
+const Alumno = require('../models/Alumno')
 
 class MoviesServices {
 
@@ -39,5 +40,22 @@ class MoviesServices {
   }
 
 }
+class AlumnosServices{
 
-module.exports = MoviesServices
+  async createAlumnoService(alumno){
+    const createdAlumno = await Alumno.create(alumno)
+    return createdAlumno || {}
+  }
+
+  async getAllAlumnosService(superpower) {
+    if(superpower){
+      const query= {superpower:{$in: superpower}}
+      const alumno = await Alumno.find(query)
+      return alumno || []
+    }
+    const alumno = await Alumno.find()
+    return alumno || []
+  }
+
+}
+module.exports = {MoviesServices,AlumnosServices}

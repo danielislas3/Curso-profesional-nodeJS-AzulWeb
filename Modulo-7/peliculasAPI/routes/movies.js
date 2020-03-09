@@ -1,5 +1,15 @@
 const express = require('express')
-const {getAllMovies,getOneMovie,createMovie,updateMovie,deleteMovie} = require('../controllers/moviesController')
+const {
+  getAllMovies,
+  getOneMovie,
+  createMovie,
+  updateMovie,
+  deleteMovie
+} = require('../controllers/moviesController')
+const {
+  createAlumno,
+  getAllAlumnos
+} = require('../controllers/alumnosController')
 
 function moviesAPI(app) {
   //creo mi router
@@ -8,7 +18,7 @@ function moviesAPI(app) {
   app.use('/api/movies', router)
   /****CRUD*****/
   /*****Read****/
-  router.get('/',getAllMovies)
+  router.get('/', getAllMovies)
   router.get('/:movieId', getOneMovie)
   /*****Create****/
   router.post('/', createMovie)
@@ -18,5 +28,20 @@ function moviesAPI(app) {
 
   /*****Delet****/
   router.delete('/:movieId', deleteMovie)
+
+
+
 }
-module.exports = moviesAPI
+
+function alumnosAPI(app) {
+  const router = express.Router()
+  app.use('/api/alumnos', router)
+  /**Alumnos***/
+  router.get('/', getAllAlumnos)
+  router.post('/', createAlumno)
+}
+
+module.exports = {
+  moviesAPI,
+  alumnosAPI
+}

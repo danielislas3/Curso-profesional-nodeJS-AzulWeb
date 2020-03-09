@@ -1,4 +1,4 @@
-const MoviesServices = require('../services/moviesServices')
+const {MoviesServices} = require('../services/moviesServices')
 
 const moviesServices = new MoviesServices()
 
